@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import ch.uepaa.p2pkit.P2PKitStatusCallback;
+import ch.uepaa.p2pkit.StatusResult;
+
 
 public class MainActivity extends Activity {
 
@@ -35,4 +38,5 @@ public class MainActivity extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }

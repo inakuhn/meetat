@@ -21,4 +21,7 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'ch.uepaa.p2p:p2pkit-android:1.1.1'
+    compile 'com.larswerkman:HoloColorPicker:1.5'
+
 }
