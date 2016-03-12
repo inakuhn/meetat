@@ -1,4 +1,4 @@
-package mahieke.sandbox.meetat;
+package de.android.meetat;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

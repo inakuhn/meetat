@@ -1,4 +1,4 @@
-package mahieke.sandbox.meetat.Login;
+package de.android.meetat.Login;
 
 import android.app.Fragment;
 import android.net.Uri;
@@ -8,8 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
-import mahieke.sandbox.meetat.MainActivity;
-import mahieke.sandbox.meetat.R;
+import de.android.meetat.MainActivity;
+import de.android.meetat.R;
 
 /**
  * A simple {@link Fragment} subclass.

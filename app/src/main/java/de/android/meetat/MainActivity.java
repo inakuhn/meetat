@@ -1,4 +1,4 @@
-package mahieke.sandbox.meetat;
+package de.android.meetat;
 
 import android.app.Fragment;
 import android.content.res.Configuration;
@@ -14,12 +14,12 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import mahieke.sandbox.meetat.Login.LoginFragment;
-import mahieke.sandbox.meetat.SearchFriendEvent.SearchFragment;
-import mahieke.sandbox.meetat.addreminders.AddRemienderFragment;
-import mahieke.sandbox.meetat.myreminders.MyReminders;
-import mahieke.sandbox.meetat.util.Navigation;
-import mahieke.sandbox.meetat.util.SessionReminder;
+import de.android.meetat.Login.LoginFragment;
+import de.android.meetat.SearchFriendEvent.SearchFragment;
+import de.android.meetat.addreminders.AddRemienderFragment;
+import de.android.meetat.myreminders.MyReminders;
+import de.android.meetat.util.Navigation;
+import de.android.meetat.util.SessionReminder;
 
 public class MainActivity extends AppCompatActivity {
     //TODO: notowrking o simulation

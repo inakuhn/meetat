@@ -1,4 +1,4 @@
-package mahieke.sandbox.meetat.myreminders;
+package de.android.meetat.myreminders;
 
 import android.app.Fragment;
 

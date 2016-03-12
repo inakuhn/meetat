@@ -1,4 +1,4 @@
-package mahieke.sandbox.meetat.addreminders;
+package de.android.meetat.addreminders;
 
 import android.app.Fragment;
 

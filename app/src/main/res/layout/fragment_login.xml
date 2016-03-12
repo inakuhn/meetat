@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:layout_gravity="center_horizontal"
     android:foregroundGravity="center"
-    tools:context="mahieke.sandbox.meetat.Login.LoginFragment"
+    tools:context="de.android.meetat.Login.LoginFragment"
     android:orientation="vertical">
 
 

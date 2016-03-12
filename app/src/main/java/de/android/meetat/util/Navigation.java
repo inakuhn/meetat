@@ -1,4 +1,4 @@
-package mahieke.sandbox.meetat.util;
+package de.android.meetat.util;
 
 /**
  * Created by raina on 12.03.2016.

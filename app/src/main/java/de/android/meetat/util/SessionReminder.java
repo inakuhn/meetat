@@ -1,4 +1,4 @@
-package mahieke.sandbox.meetat.util;
+package de.android.meetat.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;

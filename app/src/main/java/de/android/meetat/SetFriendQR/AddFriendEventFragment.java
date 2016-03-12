@@ -1,4 +1,4 @@
-package mahieke.sandbox.meetat.SetFriendQR;
+package de.android.meetat.SetFriendQR;
 
 import android.content.Context;
 import android.net.Uri;
@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import mahieke.sandbox.meetat.R;
+import de.android.meetat.R;
 
 /**
  * A simple {@link Fragment} subclass.
