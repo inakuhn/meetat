@@ -1,24 +1,25 @@
 package mahieke.sandbox.meetat;
 
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
 
-import java.util.Locale;
+import mahieke.sandbox.meetat.Login.LoginFragment;
+import mahieke.sandbox.meetat.SearchFriendEvent.SearchFragment;
+import mahieke.sandbox.meetat.addreminders.AddRemienderFragment;
+import mahieke.sandbox.meetat.myreminders.MyReminders;
+import mahieke.sandbox.meetat.util.Navigation;
+import mahieke.sandbox.meetat.util.SessionReminder;
 
 public class MainActivity extends AppCompatActivity {
     //TODO: notowrking o simulation
@@ -50,39 +51,41 @@ public class MainActivity extends AppCompatActivity {
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
         // enable ActionBar app icon to behave as action to toggle nav drawer
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-        getActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
 
         // ActionBarDrawerToggle ties together the the proper interactions
         // between the sliding drawer and the action bar app icon
         mDrawerToggle = new ActionBarDrawerToggle(
                 this,                  /* host Activity */
-                mDrawerLayout,         /* DrawerLayout object */
-                null,  /* nav drawer image to replace 'Up' caret */
+                mDrawerLayout,      /* DrawerLayout object */
+                  /* nav drawer image to replace 'Up' caret */
                 R.string.drawer_open,  /* "open drawer" description for accessibility */
                 R.string.drawer_close  /* "close drawer" description for accessibility */
         ) {
             public void onDrawerClosed(View view) {
-                getActionBar().setTitle(mTitle);
+                getSupportActionBar().setTitle(mTitle);
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
 
             public void onDrawerOpened(View drawerView) {
-                getActionBar().setTitle(mDrawerTitle);
+                getSupportActionBar().setTitle(mDrawerTitle);
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
         };
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
-        if (savedInstanceState == null) {
-            selectItem(0);
+        if (!SessionReminder.getSessionReminder().isLoged(getApplicationContext())) {
+            selectItem(Navigation.Login);
+        } else {
+            selectItem(Navigation.Search);
         }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-       // inflater.inflate(R.menu.main, menu);
+        // inflater.inflate(R.menu.main, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -103,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         // Handle action buttons
-        switch(item.getItemId()) {
+        switch (item.getItemId()) {
 
             default:
                 return super.onOptionsItemSelected(item);
@@ -114,30 +117,50 @@ public class MainActivity extends AppCompatActivity {
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            selectItem(position);
+            selectItem(Navigation.fromInteger(position));
         }
     }
 
-    private void selectItem(int position) {
+    private void selectItem(Navigation position) {
         // update the main content by replacing fragments
-        Fragment fragment = new PlanetFragment();
-        Bundle args = new Bundle();
-        args.putInt(PlanetFragment.ARG_PLANET_NUMBER, position);
-        fragment.setArguments(args);
+        /*<item>Login</item>
+        <item>Search</item>
+        <item>add reminder</item>
+        <item>My reminders</item>
+        <item>Configuration</item>*/
+        Fragment fragment = null;
+        switch (position) {
 
-        FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
-
+            case Login:
+                fragment = new LoginFragment();
+                break;
+            case Search:
+                fragment = new SearchFragment();
+                break;
+            case addReminder:
+                fragment = new AddRemienderFragment();
+                break;
+            case MyReminders:
+                fragment = new MyReminders();
+                break;
+            case Configuration:
+                fragment = new ConfigurationFragment();
+                break;
+        }
+        getFragmentManager()
+                .beginTransaction()
+                .replace(R.id.content_frame, fragment);
         // update selected item and title, then close the drawer
-        mDrawerList.setItemChecked(position, true);
-        setTitle(mPlanetTitles[position]);
+        mDrawerList.setItemChecked(Navigation.fromEnum(position), true);
+        setTitle(mPlanetTitles[Navigation.fromEnum(position)]);
         mDrawerLayout.closeDrawer(mDrawerList);
+
     }
 
     @Override
     public void setTitle(CharSequence title) {
         mTitle = title;
-        getActionBar().setTitle(mTitle);
+        getSupportActionBar().setTitle(mTitle);
     }
 
     /**
@@ -159,28 +182,10 @@ public class MainActivity extends AppCompatActivity {
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
-    /**
-     * Fragment that appears in the "content_frame", shows a planet
-     */
-    public static class PlanetFragment extends Fragment {
-        public static final String ARG_PLANET_NUMBER = "planet_number";
-
-        public PlanetFragment() {
-            // Empty constructor required for fragment subclasses
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_planet, container, false);
-            int i = getArguments().getInt(ARG_PLANET_NUMBER);
-            String planet = getResources().getStringArray(R.array.planets_array)[i];
-
-            int imageId = getResources().getIdentifier(planet.toLowerCase(Locale.getDefault()),
-                    "drawable", getActivity().getPackageName());
-            ((ImageView) rootView.findViewById(R.id.image)).setImageResource(imageId);
-            getActivity().setTitle(planet);
-            return rootView;
-        }
+    public void disableDrawer() {
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+    }
+    public void enableDrawer() {
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
     }
 }
