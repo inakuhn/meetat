@@ -184,8 +184,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void disableDrawer() {
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setHomeButtonEnabled(false);
     }
     public void enableDrawer() {
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
     }
 }

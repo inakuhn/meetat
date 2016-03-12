@@ -38,6 +38,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener{
         View rootView = inflater.inflate(R.layout.fragment_login, container, false);
         nickname = (EditText)rootView.findViewById(R.id.name_for_aplication);
         ((MainActivity) getActivity()).disableDrawer();
+
         return rootView;
 
 
@@ -50,7 +51,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener{
                 //TODO: see if nickname is unique
                 if(!nickname.getText().toString().equals("")){
 
-
+                    ((MainActivity) getActivity()).enableDrawer();
                 }
 
         }
